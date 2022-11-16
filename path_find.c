@@ -20,7 +20,7 @@ char *path_finder(char *cmd)
 	while (split)
 	{
 		dir_stream = opendir(split);
-		while (entry = readdir(dir_stream))
+		while ((entry = readdir(dir_stream)))
 		{
 			if (!strcmp(cmd, entry->d_name))
 				return (split);

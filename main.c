@@ -11,9 +11,11 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 {
 	int status;
 	pid_t child_pid;
-	char *delim = " \t\r\n";
 	int int_mode = 1;
 	char cwd[1024];
+	char *line;
+	ssize_t nread;
+	size_t len;
 
 	while (int_mode)
 	{
@@ -26,9 +28,8 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 			write(STDOUT_FILENO, "$ ", 2);
 		}
 
-		char *line = NULL;
-		ssize_t nread;
-		size_t len = 0;
+		line = NULL;
+		len = 0;
 
 		nread = getline(&line, &len, stdin);
 		if (nread == -1)

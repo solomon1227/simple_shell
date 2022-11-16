@@ -10,7 +10,7 @@ void parse_line(char *line)
 	unsigned int counter = 0;
 	char *token;
 	char **toks;
-	int capacity = 1024;
+	unsigned int capacity = 1024;
 	char *delim = " \t\r\n";
 	char **a;
 
