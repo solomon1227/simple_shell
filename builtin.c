@@ -62,6 +62,6 @@ void Env(char **cmd __attribute__((unused)))
 	{
 		if (environ[i])
 			printf("%s\n", environ[i]);
-		i++; 
+		i++;
 	}
 }
