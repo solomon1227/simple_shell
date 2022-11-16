@@ -31,13 +31,16 @@ char *real_name;
 typedef struct my_builtin
 {
 char *builtin_name;
-char (*built_fun)(void);
+void (*built_fun)(char **);
 } builtin_t;
 
 char *alias_cmp(char *arg);
 void execute(char *path, char **cmd);
 void parse_line(char *line);
 char *path_finder(char *cmd);
+void (*built(char*))(char**);
+void my_chdir(char **cmd);
+void Exit(char **cmd);
 
 
 #endif /* #ifndef MAIN_H */

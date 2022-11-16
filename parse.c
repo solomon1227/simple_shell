@@ -12,6 +12,7 @@ void parse_line(char *line)
 	char **toks;
 	unsigned int capacity = 1024;
 	char *delim = " \t\r\n";
+	void (*fun_ptr)(char**);
 
 
 	/*parse the line*/
@@ -30,12 +31,20 @@ void parse_line(char *line)
 
 	}
 	toks[counter] = token;
-
-	path = path_finder(toks[0]);
-	if (path != NULL)
+	fun_ptr = built(toks[0]);
+	if(fun_ptr != NULL)
 	{
-		execute(path, toks);
+		printf("fun_ptr =\n");
+		(*fun_ptr)(toks);
 	}
 	else
-		printf("%s: command not found\n", toks[0]);
+	{
+		path = path_finder(toks[0]);
+		if (path != NULL)
+		{
+			execute(path, toks);
+		}
+		else
+			printf("%s: command not found\n", toks[0]);
+	}
 }
