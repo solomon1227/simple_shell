@@ -6,33 +6,17 @@
 void execute(char **cmd)
 {
 	unsigned int i;
-	char *true_path, *slash = "/";
 	char *path;
 	char **argv = malloc(2 * sizeof(cmd));
-	char **a;
+	/*pid_t child_pid;*/
 
-	/*excute the comand*/
 	if ((access(cmd[0], F_OK) == 0))
-	{
-		argv[0] = cmd[0];
-		while (cmd[i])
-		{
-			argv[i] = cmd[i];
-			i++;
-		}
-		argv[i] = cmd[i];
-
-		if (execve(argv[0], argv, NULL) == -1)
-		{
-			perror("Error");
-		}
-	}
+		path = cmd[0];
 	else
-	{
 		path = path_finder(cmd[0]);
-		slash = strcat(path, slash);
-		true_path = strcat(slash, cmd[0]);
-		argv[0] = true_path;
+	if (path != NULL)
+	{
+		argv[0] = path;
 		i = 1;
 		while (cmd[i])
 		{
@@ -43,11 +27,9 @@ void execute(char **cmd)
 		if (execve(argv[0], argv, NULL) == -1)
 		{
 			perror("Error");
+			exit(EXIT_FAILURE);
 		}
-		
-	a = argv;
-	while (*argv)
-		free(*argv++);
-	free(a);
 	}
+	else
+		printf("%s: command not found\n", cmd[0]);
 }

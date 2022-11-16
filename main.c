@@ -9,8 +9,8 @@
   */
 int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 {
-	int status;
 	pid_t child_pid;
+	int status;
 	int int_mode = 1;
 	char cwd[1024];
 	char *line;

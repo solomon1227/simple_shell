@@ -12,7 +12,7 @@ void parse_line(char *line)
 	char **toks;
 	unsigned int capacity = 1024;
 	char *delim = " \t\r\n";
-	char **a;
+
 
 	/*parse the line*/
 	toks = malloc(sizeof(char) * capacity);
@@ -30,11 +30,6 @@ void parse_line(char *line)
 
 	}
 	toks[counter] = token;
-	printf("solomon3");
 	/* Calling excute functio*/
 	execute(toks);
-	a = toks;
-	while (*toks)
-		free(*toks++);
-	free(a);
 }
