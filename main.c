@@ -34,7 +34,7 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 		nread = getline(&line, &len, stdin);
 		if (nread == -1)
 		{
-			perror("Error:");
+			perror("error");
 		}
 		child_pid = fork();
 		if (child_pid < 0)
@@ -43,6 +43,7 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 			parse_line(line);	/*parse the line*/
 		else
 			wait(&status);
+
 		free(line);
 	}
 	return (0);

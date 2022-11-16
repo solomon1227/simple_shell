@@ -8,7 +8,7 @@ void parse_line(char *line)
 {
 
 	unsigned int counter = 0;
-	char *token;
+	char *token, *path;
 	char **toks;
 	unsigned int capacity = 1024;
 	char *delim = " \t\r\n";
@@ -30,6 +30,13 @@ void parse_line(char *line)
 
 	}
 	toks[counter] = token;
-	/* Calling excute functio*/
-	execute(toks);
+
+	path = path_finder(toks[0]);
+	printf("path = %s\n", path);
+	if (path != NULL)
+	{
+		execute(path, toks);
+	}
+	else
+		printf("%s: command not found\n", toks[0]);
 }
