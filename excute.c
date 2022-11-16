@@ -2,6 +2,7 @@
 /**
   * execute - excute the comand
   * @cmd: the command and arguments to e executed - array of string
+  * @path: path of the command
   */
 void execute(char *path, char **cmd)
 {

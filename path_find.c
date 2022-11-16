@@ -23,12 +23,12 @@ char *path_finder(char *cmd)
 		dir_stream = opendir(split);
 		while ((entry = readdir(dir_stream)))
 		{
-			if (!strcmp(cmd, entry->d_name))
-				{
-					slash = strcat(split, slash);
-					true_path = strcat(slash, cmd);
-					return (true_path);
-				}
+			if (!(strcmp(cmd, entry->d_name)))
+			{
+				slash = strcat(split, slash);
+				true_path = strcat(slash, cmd);
+				return (true_path);
+			}
 		}
 		closedir(dir_stream);
 		split = strtok(NULL, delimiter);
