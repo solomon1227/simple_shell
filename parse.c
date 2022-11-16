@@ -33,7 +33,6 @@ void parse_line(char *line)
 	fun_ptr = built(toks[0]);
 	if (fun_ptr != NULL)
 	{
-		printf("fun_ptr =\n");
 		fun_ptr(toks);
 	}
 	else

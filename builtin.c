@@ -44,7 +44,6 @@ void my_chdir(char **cmd)
 
 	char cwd[1024];
 
-
 	getcwd(cwd, sizeof(cwd));
 	if (!strcmp(cmd[0], cwd))
 		if (chdir(cmd[1]) == -1)
@@ -63,6 +62,6 @@ void Env(char **cmd __attribute__((unused)))
 	{
 		if (environ[i])
 			printf("%s\n", environ[i]);
-		i++;
+		i++; 
 	}
 }
