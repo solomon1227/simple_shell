@@ -1,5 +1,11 @@
 #include "main.h"
 
+/**
+  * built - builtin function
+  * @cmd: command
+  * Return: pointer to builtin function
+  */
+
 void (*built(char *cmd))(char **)
 {
 	int i = 0;
@@ -20,11 +26,19 @@ void (*built(char *cmd))(char **)
 	return (NULL);
 }
 
+/**
+  * Exit - builtin function
+  * @cmd: command
+  */
 void Exit(char **cmd __attribute__((unused)))
 {
 	exit(0);
 }
 
+/**
+  * my_chdir - builtin function
+  * @cmd: command
+  */
 void my_chdir(char **cmd)
 {
 
@@ -33,12 +47,18 @@ void my_chdir(char **cmd)
 
 	getcwd(cwd, sizeof(cwd));
 	if (!strcmp(cmd[0], cwd))
-		if(chdir(cmd[1]) == -1)
+		if (chdir(cmd[1]) == -1)
 			perror("Error");
 }
+
+/**
+  * Env - builtin function
+  * @cmd: command
+  */
 void Env(char **cmd __attribute__((unused)))
 {
 	int i = 0;
+
 	while (environ[i])
 	{
 		if (environ[i])

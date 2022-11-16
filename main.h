@@ -34,13 +34,14 @@ char *builtin_name;
 void (*built_fun)(char **);
 } builtin_t;
 
+extern char **environ;
 char *alias_cmp(char *arg);
 void execute(char *path, char **cmd);
 void parse_line(char *line);
 char *path_finder(char *cmd);
-void (*built(char*))(char**);
+void (*built(char *))(char **);
 void my_chdir(char **cmd);
 void Exit(char **cmd);
-
+void Env(char **);
 
 #endif /* #ifndef MAIN_H */

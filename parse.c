@@ -12,7 +12,7 @@ void parse_line(char *line)
 	char **toks;
 	unsigned int capacity = 1024;
 	char *delim = " \t\r\n";
-	void (*fun_ptr)(char**);
+	void (*fun_ptr)(char **);
 
 
 	/*parse the line*/
@@ -28,11 +28,10 @@ void parse_line(char *line)
 			toks = realloc(toks, capacity * sizeof(char));
 		}
 		token = strtok(NULL, delim);
-
 	}
 	toks[counter] = token;
 	fun_ptr = built(toks[0]);
-	if(fun_ptr != NULL)
+	if (fun_ptr != NULL)
 	{
 		printf("fun_ptr =\n");
 		fun_ptr(toks);
