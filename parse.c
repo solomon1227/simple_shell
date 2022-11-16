@@ -32,7 +32,6 @@ void parse_line(char *line)
 	toks[counter] = token;
 
 	path = path_finder(toks[0]);
-	printf("path = %s\n", path);
 	if (path != NULL)
 	{
 		execute(path, toks);

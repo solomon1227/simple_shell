@@ -35,7 +35,7 @@ char (*built_fun)(void);
 } builtin_t;
 
 char *alias_cmp(char *arg);
-void execute(char **cmd);
+void execute(char *path, char **cmd);
 void parse_line(char *line);
 char *path_finder(char *cmd);
 
