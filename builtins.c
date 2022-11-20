@@ -60,9 +60,7 @@ int shell_num_builtins(built_s builtin[])
 
 	int shell_exit(char **cmd __attribute__((unused)))
 	{
-		if (cmd[1] != NULL)
-			exit(atoi(cmd[1]));
-		exit(0);
+		return (-1);
 	}
 
 
