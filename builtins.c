@@ -54,7 +54,8 @@ int shell_num_builtins(built_s builtin[])
 #include "main.h"
 /**
 **shell_exit - exits the shell
-**Return: void
+ * @cmd: arguments being passed
+ * Return: void
 **/
 
 	int shell_exit(char **cmd __attribute__((unused)))
@@ -64,8 +65,9 @@ int shell_num_builtins(built_s builtin[])
 
 
 /**
-**shell_env - prints environment
-**Return: void
+* shell_env - prints environment
+ * @cmd: arguments being passed
+ * Return: void
 **/
 
 	int shell_env(char **cmd __attribute__((unused)))
@@ -84,6 +86,7 @@ int shell_num_builtins(built_s builtin[])
 /**
   * my_chdir - builtin function
   * @cmd: command
+  * Return: void
   */
 	int my_chdir(char **cmd)
 	{
