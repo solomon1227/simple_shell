@@ -1,50 +1,48 @@
 #include "main.h"
-
 /**
-  * main - infinite loop until exit
-  * @ac: length of argunments
-  * @av: array of main argunments
-  *
-  * Return: 0 on success, 1 otherwise
-  */
-int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
+ * main - main loop of shell
+ * Return: 0 on success
+ */
+int main(void)
 {
-	pid_t child_pid;
-	int status;
-	int int_mode = 1;
-	char cwd[1024];
-	char *line;
-	ssize_t nread;
-	size_t len;
+	char *line, *path, *fullpath;
+	char **tokens;
+	int flag, builtin_status, child_status;
+	struct stat buf;
 
-	while (int_mode)
+	while (TRUE)
 	{
-		int_mode = isatty(STDIN_FILENO);
-		if (int_mode == 1)
+		prompt(STDIN_FILENO, buf);
+		line = _getline(stdin);
+		if (_strcmp(line, "\n", 1) == 0)
 		{
-			getcwd(cwd, sizeof(cwd));
-			printf("%s@", cwd);
-			printf("%s:\n", getenv("USER"));
-			write(STDOUT_FILENO, "$ ", 2);
+			free(line);
+			continue;
 		}
-
-		line = NULL;
-		len = 0;
-
-		nread = getline(&line, &len, stdin);
-		if (nread == -1)
+		tokens = tokenizer(line);
+		if (tokens[0] == NULL)
+			continue;
+		builtin_status = builtin_execute(tokens);
+		if (builtin_status == 0 || builtin_status == -1)
 		{
-			perror("error");
+			free(tokens);
+			free(line);
 		}
-		child_pid = fork();
-		if (child_pid < 0)
-			perror("Error");
-		if (child_pid == 0)
-			parse_line(line);	/*parse the line*/
+		if (builtin_status == 0)
+			continue;
+		if (builtin_status == -1)
+			_exit(EXIT_SUCCESS);
+		flag = 0; /* 0 if full_path is not malloc'd */
+		path = _getenv("PATH");
+		fullpath = _which(tokens[0], fullpath, path);
+		if (fullpath == NULL)
+			fullpath = tokens[0];
 		else
-			wait(&status);
-
-		free(line);
+			flag = 1; /* if fullpath was malloc'd, flag to free */
+		child_status = child(fullpath, tokens);
+		if (child_status == -1)
+			errors(2);
+		free_all(tokens, path, line, fullpath, flag);
 	}
 	return (0);
 }

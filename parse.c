@@ -1,48 +1,34 @@
 #include "main.h"
 
 /**
-  * parse_line - split the line into tokens
-  * @line: line read
-  */
-void parse_line(char *line)
+ * tokenizer - tokenizes string
+ * @str: user input
+ * Return: pointer to array of tokens
+ */
+char **tokenizer(char *str)
 {
+	char **tokens;
+	char *token;
+	unsigned int i;
 
-	unsigned int counter = 0;
-	char *token, *path;
-	char **toks;
-	unsigned int capacity = 1024;
-	char *delim = " \t\r\n";
-	void (*fun_ptr)(char **);
+	tokens = malloc(sizeof(char) * BUFFER);
+	if (tokens == NULL)
+	{
+		errors(3);
+		exit(EXIT_FAILURE);
+	}
 
+	token = strtok(str, "\n\t\r ");
 
-	/*parse the line*/
-	toks = malloc(sizeof(char) * capacity);
-	token = strtok(line, delim);
+	i = 0;
 	while (token != NULL)
 	{
-		toks[counter] = token;
-		counter++;
-		if (counter >= capacity)
-		{
-			capacity *= 2;
-			toks = realloc(toks, capacity * sizeof(char));
-		}
-		token = strtok(NULL, delim);
+		tokens[i] = token;
+		token = strtok(NULL, "\n\t\r ");
+		i++;
 	}
-	toks[counter] = token;
-	fun_ptr = built(toks[0]);
-	if (fun_ptr != NULL)
-	{
-		fun_ptr(toks);
-	}
-	else
-	{
-		path = path_finder(toks[0]);
-		if (path != NULL)
-		{
-			execute(path, toks);
-		}
-		else
-			printf("%s: command not found\n", toks[0]);
-	}
+
+	tokens[i] = NULL;
+
+	return (tokens);
 }
